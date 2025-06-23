@@ -13,4 +13,4 @@ class Player:
         return (self.__x, self.__y)
 
     def show(self, surf):
-        pygame.draw.circle(surf, "white", (self.__x, self.__y), 25)
+        pygame.draw.rect(surf, "white", (self.__x, self.__y, 50, 50))
