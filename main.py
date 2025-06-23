@@ -11,6 +11,8 @@ Player = player.Player()
 World = world.World()
 
 World.genRoom()
+initPos = World.sPos()
+Player.setPos(initPos[0], initPos[1])
 
 while running:
     for event in pygame.event.get():

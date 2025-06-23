@@ -62,5 +62,11 @@ class World:
                 else:
                     pygame.draw.rect(surf, "gold", (i * 50, j * 50, 50, 50))
 
-    def checkPos(self):
-        pass
+    def sPos(self):
+        for i in range(self.__width):
+            for j in range(self.__height):
+                if self.checkPos(i, j):
+                    return (i, j)
+
+    def checkPos(self, x, y):
+        return self.__grid[x][y] == "floor"
