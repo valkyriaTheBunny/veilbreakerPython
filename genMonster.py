@@ -1,9 +1,10 @@
 from math import sqrt
+from random import choice
 import pygame
 
 class Generic:
     def __init__(self, name, health, equip):
-        self.moves = [[0,1], [0, -1], [1, 0], [-1, 0]]
+        self.__moves = [[0,1], [0, -1], [1, 0], [-1, 0]]
         self.name = name
         self.health = health
         self.equip = equip
@@ -20,7 +21,7 @@ class Generic:
         dist = sqrt(((self.__x - pos[0]) ** 2) + ((self.__y - pos[1]) ** 2))
         chosen = None
 
-        for move in self.moves:
+        for move in self.__moves:
             newMonPosX = self.__x + move[0]
             newMonPosY = self.__y + move[1]
             if world.checkPos(newMonPosX, newMonPosY):
@@ -28,6 +29,9 @@ class Generic:
                 if dist2 < dist:
                     chosen = move
                     break
+
+        if chosen == None:
+            chosen = choice(self.__moves)
 
         self.__x = self.__x + chosen[0]
         self.__y = self.__y + chosen[1]

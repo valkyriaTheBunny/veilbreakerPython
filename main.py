@@ -33,10 +33,10 @@ while running:
 
             if world.checkPos(pos[0], pos[1]):
                 player.setPos(pos[0], pos[1])
+                world.update(player)
 
     screen.fill("black")
     world.show(screen)
-    world.update(player)
     player.show(screen)
     pygame.display.flip()
     clock.tick(60)

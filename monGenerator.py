@@ -1,13 +1,8 @@
 from genMonster import Generic
 from random import randint
 
-class Goblin(Generic):
-    def __init__(self):
-        super().__init__("Goblin", 10, "Sword")
-
-class Troll(Generic):
-    def __init__(self):
-        super().__init__("Troll", 10, "Club")
+Goblin = Generic("Goblin", 10, "Sword")
+Troll = Generic("Troll", 10, "Club")
 
 class Generator:
     def __init__(self):
