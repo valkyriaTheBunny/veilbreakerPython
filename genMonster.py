@@ -3,15 +3,13 @@ import pygame
 
 class Generic:
     def __init__(self, name, health, equip):
-        self.__moves = [[0,1], [0, -1], [1, 0], [-1, 0]]
-        self.__name = name
-        self.__health = health
-        self.__equip = equip
+        self.moves = [[0,1], [0, -1], [1, 0], [-1, 0]]
+        self.name = name
+        self.health = health
+        self.equip = equip
         self.__x = 0
         self.__y = 0
 
-    def getName(self):
-        return self.__name
 
     def setPos(self, x, y):
         self.__x = x
@@ -22,7 +20,7 @@ class Generic:
         dist = sqrt(((self.__x - pos[0]) ** 2) + ((self.__y - pos[1]) ** 2))
         chosen = None
 
-        for move in self.__moves:
+        for move in self.moves:
             newMonPosX = self.__x + move[0]
             newMonPosY = self.__y + move[1]
             if world.checkPos(newMonPosX, newMonPosY):
@@ -35,4 +33,4 @@ class Generic:
         self.__y = self.__y + chosen[1]
 
     def show(self, surf):
-        pygame.draw.rect(surf, "green", self.__x * 50, self.__y * 50, 50, 50)
+        pygame.draw.rect(surf, "green", (self.__x * 50, self.__y * 50, 50, 50))

@@ -12,7 +12,7 @@ world = World()
 
 world.genRoom()
 initPos = world.sPos()
-Player.setPos(initPos[0], initPos[1])
+player.setPos(initPos[0], initPos[1])
 
 while running:
     for event in pygame.event.get():

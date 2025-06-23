@@ -61,7 +61,7 @@ class World:
             for j in range(self.__height):
                 if self.__grid[i][j] == "floor" and randint(0, 100) > 55:
                     mon = self.__gen.create()
-                    mon.setPos(i, j)
+                    mon.setPos(mon, i, j)
                     self.__monList.append(mon)
 
 
@@ -74,11 +74,11 @@ class World:
                     pygame.draw.rect(surf, "gold", (i * 50, j * 50, 50, 50))
 
         for mon in self.__monList:
-            mon.show(surf)
+            mon.show(mon, surf)
 
     def update(self, target):
         for mon in self.__monList:
-            mon.move(target, self)
+            mon.move(mon, target, self)
 
     def sPos(self):
         for i in range(self.__width):
