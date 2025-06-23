@@ -1,5 +1,6 @@
 from math import sqrt
 from random import choice
+from copy import deepcopy
 import pygame
 
 class Generic:
@@ -17,12 +18,12 @@ class Generic:
         self.__y = y
 
     def move(self, target, world):
-        moves = self.__moves
+        moves = deepcopy(self.__moves)
         pos = target.getPos()
         dist = sqrt(((self.__x - pos[0]) ** 2) + ((self.__y - pos[1]) ** 2))
         chosen = None
 
-        for move in self.__moves:
+        for move in moves:
             newMonPosX = self.__x + move[0]
             newMonPosY = self.__y + move[1]
             if world.checkPos(newMonPosX, newMonPosY):

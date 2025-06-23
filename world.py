@@ -1,5 +1,6 @@
 from random import randint
 from datetime import datetime
+from copy import deepcopy
 from monGenerator import Generator
 import pygame, random
 
@@ -26,7 +27,7 @@ class World:
 
     def __smoothing(self):
         for _ in range(500):
-            temp = self.__grid
+            temp = deepcopy(self.__grid)
             for j in range(self.__width):
                 for k in range(self.__height):
                     nWallCnt = self.__wallCount(temp, j, k)
