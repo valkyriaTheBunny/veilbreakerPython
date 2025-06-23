@@ -33,7 +33,7 @@ while running:
 
             if world.checkPos(pos[0], pos[1]):
                 player.setPos(pos[0], pos[1])
-                world.update(player)
+                world.update()
 
     screen.fill("black")
     world.show(screen)

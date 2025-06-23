@@ -6,11 +6,11 @@ class Player:
         self.__y = 0
 
     def setPos(self, x, y):
-        self.__x = x * 50
-        self.__y = y * 50
-        
+        self.__x = x
+        self.__y = y
+
     def getPos(self):
-        return [self.__x // 50, self.__y // 50]
+        return [self.__x, self.__y]
 
     def show(self, surf):
-        pygame.draw.rect(surf, "white", (self.__x, self.__y, 50,  50))
+        pygame.draw.rect(surf, "white", (self.__x * 50, self.__y * 50, 50,  50))

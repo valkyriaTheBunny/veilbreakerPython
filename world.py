@@ -77,9 +77,9 @@ class World:
         for mon in self.__monList:
             mon.show(surf)
 
-    def update(self, target):
+    def update(self):
         for mon in self.__monList:
-            mon.move(target, self)
+            mon.move(self)
 
     def sPos(self):
         for i in range(self.__width):

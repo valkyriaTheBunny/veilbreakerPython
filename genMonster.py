@@ -5,7 +5,6 @@ import pygame
 
 class Generic:
     def __init__(self, name, health, equip):
-        self.__moves = [[0,1], [0, -1], [1, 0], [-1, 0]]
         self.name = name
         self.health = health
         self.equip = equip
@@ -17,32 +16,15 @@ class Generic:
         self.__x = x
         self.__y = y
 
-    def move(self, target, world):
-        moves = deepcopy(self.__moves)
-        pos = target.getPos()
-        dist = sqrt(((self.__x - pos[0]) ** 2) + ((self.__y - pos[1]) ** 2))
-        chosen = None
+    def getPos(self):
+        return (self.__x, self.__y)
 
-        for move in moves:
-            newMonPosX = self.__x + move[0]
-            newMonPosY = self.__y + move[1]
-            if world.checkPos(newMonPosX, newMonPosY):
-                dist2 = sqrt(((newMonPosX - pos[0]) ** 2) + ((newMonPosY - pos[1]) ** 2))
-                if dist2 < dist:
-                    chosen = move
-                    break
-
-        while chosen == None:
-            if moves[0]:
-                chosen = choice(moves)
-                newMonPosX = self.__x + chosen[0]
-                newMonPosY = self.__y + chosen[1]
-                if not world.checkPos(newMonPosX, newMonPosY):
-                    moves.remove(chosen)
-                    chosen = None
-
-        self.__x = self.__x + chosen[0]
-        self.__y = self.__y + chosen[1]
+    def move(self, world):
+        for i in range(self.__x - 1, self.__x + 1):
+            for j in range(self.__y - 1, self.__y + 1):
+                if ((i, j) != self.getPos()) and world.checkPos(i, j):
+                    print(i, j)
+                    self.setPos(i, j)
 
     def show(self, surf):
         pygame.draw.rect(surf, "green", (self.__x * 50, self.__y * 50, 50, 50))
