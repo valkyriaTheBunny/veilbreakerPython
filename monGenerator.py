@@ -1,5 +1,5 @@
 from genMonster import Generic
-from random import randint
+from random import choice
 
 Goblin = Generic("Goblin", 10, "Sword")
 Troll = Generic("Troll", 10, "Club")
@@ -9,4 +9,4 @@ class Generator:
         self.__choices = [Goblin, Troll]
 
     def create(self):
-        return self.__choices[randint(0, 1)]
+        return choice(self.__choices)
