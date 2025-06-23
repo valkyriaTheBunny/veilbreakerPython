@@ -1,2 +1,3 @@
 # veilbreakerPython
 Veilbreaker is a 2D dungeon crawling souls-likes with rock hard combat encounters at every turn, and speed running with run times and leaderboards.
+The fabric of reality in this world is being manipulated by The Mistress of The Veil, acting only in their own self interest. Doing so is causing the world to fall apart at the seams, and you must find a way to this shadowy Mistress and defeat them. Chosen not at birth, not by some guiding force, no, your soul isn’t even the only one attempting to stop the world from completely shattering. But try you must, because above all, you love the challenge. Fight against the shadowy machinations attempting to pull you further and further away from your goal and defeat the face behind it all.
