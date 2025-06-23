@@ -88,13 +88,9 @@ class World:
                     return [i, j]
 
     def checkPos(self, x, y):
-        print(x, y)
         if x < 0 or y < 0 or x >= self.__width or y >= self.__height:
-            print("derp")
             return False
         if self.__grid[x][y] == "floor":
-            print("success")
             return True
         else:
-            print("Noooo")
             return False

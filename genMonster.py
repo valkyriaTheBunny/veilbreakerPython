@@ -17,7 +17,6 @@ class Generic:
         for i in range(self.__x - 1, self.__x + 2):
             for j in range(self.__y - 1, self.__y + 2):
                 if (i != self.__x and j != self.__y) and world.checkPos(i, j):
-                    print(i, j)
                     self.setPos(i, j)
                     break
 
