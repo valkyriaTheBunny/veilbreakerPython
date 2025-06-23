@@ -1,14 +1,15 @@
-from random import randrange
 from random import randint
 from datetime import datetime
+from monGenerator import Generator
 import pygame, random
 
 class World:
     def __init__(self):
         self.__height = 14
         self.__width = 24
-        self.monList = []
+        self.__monList = []
         self.__grid = []
+        self.__gen = Generator()
         ms = datetime.time(datetime.now()).microsecond
         random.seed(ms * 100000)
 
@@ -53,6 +54,16 @@ class World:
     def genRoom(self):
         self.__genNoise()
         self.__smoothing()
+        self.__genMonsters()
+
+    def __genMonsters(self):
+        for i in range(self.__width):
+            for j in range(self.__height):
+                if self.__grid[i][j] == "floor" and randint(0, 100) > 55:
+                    mon = self.__gen.create()
+                    mon.setPos(i, j)
+                    self.__monList.append(mon)
+
 
     def show(self, surf):
         for i in range(self.__width):
@@ -61,6 +72,13 @@ class World:
                     pygame.draw.rect(surf, "purple", (i * 50, j * 50, 50, 50))
                 else:
                     pygame.draw.rect(surf, "gold", (i * 50, j * 50, 50, 50))
+
+        for mon in self.__monList:
+            mon.show(surf)
+
+    def update(self, target):
+        for mon in self.__monList:
+            mon.move(target, self)
 
     def sPos(self):
         for i in range(self.__width):

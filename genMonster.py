@@ -1,4 +1,3 @@
-from world import World
 from math import sqrt
 import pygame
 
@@ -18,7 +17,7 @@ class Generic:
         self.__x = x
         self.__y = y
 
-    def move(self, target):
+    def move(self, target, world):
         pos = target.getPos()
         dist = sqrt(((self.__x - pos[0]) ** 2) + ((self.__y - pos[1]) ** 2))
         chosen = None
@@ -26,7 +25,7 @@ class Generic:
         for move in self.__moves:
             newMonPosX = self.__x + move[0]
             newMonPosY = self.__y + move[1]
-            if World.checkPos(newMonPosX, newMonPosY):
+            if world.checkPos(newMonPosX, newMonPosY):
                 dist2 = sqrt(((newMonPosX - pos[0]) ** 2) + ((newMonPosY - pos[1]) ** 2))
                 if dist2 < dist:
                     chosen = move

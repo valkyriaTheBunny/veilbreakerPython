@@ -1,17 +1,17 @@
+from player import Player
+from world import World
 import pygame
-import player
-import world
 
 pygame.init()
 screen = pygame.display.set_mode((1200, 700))
 pygame.display.set_caption("Veilbreaker")
 clock = pygame.time.Clock()
 running = True
-Player = player.Player()
-World = world.World()
+player = Player()
+world = World()
 
-World.genRoom()
-initPos = World.sPos()
+world.genRoom()
+initPos = world.sPos()
 Player.setPos(initPos[0], initPos[1])
 
 while running:
@@ -20,7 +20,7 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN:
             key = pygame.key.get_pressed()
-            pos = Player.getPos()
+            pos = player.getPos()
 
             if key[pygame.K_w] or key[pygame.K_UP]:
                 pos[1] -= 1
@@ -31,12 +31,13 @@ while running:
             if key[pygame.K_d] or key[pygame.K_RIGHT]:
                 pos[0] += 1
 
-            if World.checkPos(pos[0], pos[1]):
-                Player.setPos(pos[0], pos[1])
+            if world.checkPos(pos[0], pos[1]):
+                player.setPos(pos[0], pos[1])
 
     screen.fill("black")
-    World.show(screen)
-    Player.show(screen)
+    world.show(screen)
+    world.update(player)
+    player.show(screen)
     pygame.display.flip()
     clock.tick(60)
 
