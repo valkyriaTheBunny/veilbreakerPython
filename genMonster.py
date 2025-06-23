@@ -11,6 +11,9 @@ class Generic:
         self.__x = 0
         self.__y = 0
 
+    def getName(self):
+        return self.__name
+
     def setPos(self, x, y):
         self.__x = x
         self.__y = y
