@@ -25,6 +25,7 @@ class Generic:
                 if ((i, j) != self.getPos()) and world.checkPos(i, j):
                     print(i, j)
                     self.setPos(i, j)
+                    break
 
     def show(self, surf):
         pygame.draw.rect(surf, "green", (self.__x * 50, self.__y * 50, 50, 50))
