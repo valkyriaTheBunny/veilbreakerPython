@@ -1,6 +1,3 @@
-from math import sqrt
-from random import choice
-from copy import deepcopy
 import pygame
 
 class Generic:
