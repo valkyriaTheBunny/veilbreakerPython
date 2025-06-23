@@ -17,6 +17,7 @@ class Generic:
         self.__y = y
 
     def move(self, target, world):
+        moves = self.__moves
         pos = target.getPos()
         dist = sqrt(((self.__x - pos[0]) ** 2) + ((self.__y - pos[1]) ** 2))
         chosen = None
@@ -30,8 +31,14 @@ class Generic:
                     chosen = move
                     break
 
-        if chosen == None:
-            chosen = choice(self.__moves)
+        while chosen == None:
+            if moves[0]:
+                chosen = choice(moves)
+                newMonPosX = self.__x + chosen[0]
+                newMonPosY = self.__y + chosen[1]
+                if not world.checkPos(newMonPosX, newMonPosY):
+                    moves.remove(chosen)
+                    chosen = None
 
         self.__x = self.__x + chosen[0]
         self.__y = self.__y + chosen[1]

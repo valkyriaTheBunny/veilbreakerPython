@@ -11,7 +11,7 @@ class World:
         self.__grid = []
         self.__generator = Generator()
         ms = datetime.time(datetime.now()).microsecond
-        random.seed(ms * 100000)
+        random.seed(ms * 100000 + ms)
 
     def __genNoise(self):
         noiseDen = 65
