@@ -13,13 +13,10 @@ class Generic:
         self.__x = x
         self.__y = y
 
-    def getPos(self):
-        return (self.__x, self.__y)
-
     def move(self, world):
-        for i in range(self.__x - 1, self.__x + 1):
-            for j in range(self.__y - 1, self.__y + 1):
-                if ((i, j) != self.getPos()) and world.checkPos(i, j):
+        for i in range(self.__x - 1, self.__x + 2):
+            for j in range(self.__y - 1, self.__y + 2):
+                if (i != self.__x and j != self.__y) and world.checkPos(i, j):
                     print(i, j)
                     self.setPos(i, j)
                     break
