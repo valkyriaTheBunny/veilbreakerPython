@@ -19,10 +19,20 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN:
-            key = pygame.key.get_pressed
+            key = pygame.key.get_pressed()
+            pos = Player.getPos()
 
-            if key == pygame.K_w or key == pygame.K_UP:
-                pass
+            if key[pygame.K_w] or key[pygame.K_UP]:
+                pos[1] -= 1
+            if key[pygame.K_s] or key[pygame.K_DOWN]:
+                pos[1] += 1
+            if key[pygame.K_a] or key[pygame.K_LEFT]:
+                pos[0] -= 1
+            if key[pygame.K_d] or key[pygame.K_RIGHT]:
+                pos[0] += 1
+
+            if World.checkPos(pos[0], pos[1]):
+                Player.setPos(pos[0], pos[1])
 
     screen.fill("black")
     World.show(screen)

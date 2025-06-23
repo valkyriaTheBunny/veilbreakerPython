@@ -66,7 +66,9 @@ class World:
         for i in range(self.__width):
             for j in range(self.__height):
                 if self.checkPos(i, j):
-                    return (i, j)
+                    return [i, j]
 
     def checkPos(self, x, y):
+        if x < 0 or y < 0 or x > self.__height or y > self.__width:
+            return False
         return self.__grid[x][y] == "floor"
