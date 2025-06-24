@@ -1,8 +1,8 @@
 from random import randint
 from datetime import datetime
-from copy import deepcopy
-from monGenerator import Generator
+from collections import deque
 import pygame, random
+from monGenerator import Generator
 
 class World:
     def __init__(self):
@@ -25,46 +25,57 @@ class World:
                 else:
                     self.__grid[i].append("floor")
 
-    def __smoothing(self):
-        for _ in range(500):
-            temp = deepcopy(self.__grid)
-            for j in range(self.__width):
-                for k in range(self.__height):
-                    nWallCnt = self.__wallCount(temp, j, k)
+    def __smoothing(self, iterations=10):
+        width, height = self.__width, self.__height
+        for _ in range(iterations):
+            new_grid = [["wall"] * height for _ in range(width)]
+            for x in range(width):
+                for y in range(height):
+                    walls = 0
+                    for dx in [-1, 0, 1]:
+                        for dy in [-1, 0, 1]:
+                            nx, ny = x + dx, y + dy
+                            if 0 <= nx < width and 0 <= ny < height:
+                                if self.__grid[nx][ny] == "wall":
+                                    walls += 1
+                            else:
+                                walls += 1
+                    new_grid[x][y] = "floor" if walls < 5 else "wall"
+            self.__grid = new_grid
 
-                    r = randint(1, 5)
-                    if nWallCnt > r:
-                        self.__grid[j][k] = "wall"
-                    else:
-                        self.__grid[j][k] = "floor"
+    def __is_area_connected(self, start_x, start_y):
+        visited = set()
+        queue = deque([(start_x, start_y)])
+        visited.add((start_x, start_y))
 
-    def __wallCount(self, temp, inX, inY):
-        cnt = 2
-        for i in range(inX - 1, inX + 1):
-            for j in range(inY - 1, inY + 1):
-                if ((i > 0 and j > 0 ) and
-                    (i < self.__width and j < self.__height)):
+        while queue:
+            x, y = queue.popleft()
+            for dx, dy in [(-1,0), (1,0), (0,-1), (0,1)]:
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < self.__width and 0 <= ny < self.__height:
+                    if (nx, ny) not in visited and self.__grid[nx][ny] == "floor":
+                        visited.add((nx, ny))
+                        queue.append((nx, ny))
 
-                    if i != inX and j != inY:
-                        if temp[i][j] == "wall":
-                            cnt += 1
-                else:
-                    cnt += 1
-        return cnt
+        total_floor = sum(row.count("floor") for row in self.__grid)
+        return len(visited) == total_floor
 
     def genRoom(self):
-        self.__genNoise()
-        self.__smoothing()
-        self.__genMonsters()
+        while True:
+            self.__grid = []
+            self.__genNoise()
+            self.__smoothing(10)
+            sx, sy = self.sPos()
+            if self.__is_area_connected(sx, sy):
+                break
 
-    def __genMonsters(self):
+        self.__monList = []
         for i in range(self.__width):
             for j in range(self.__height):
-                if self.__grid[i][j] == "floor" and randint(0, 100) > 55:
+                if self.__grid[i][j] == "floor" and randint(0, 300) > 55:
                     mon = self.__generator.create()
                     mon.setPos(i, j)
                     self.__monList.append(mon)
-
 
     def show(self, surf):
         for i in range(self.__width):
@@ -90,7 +101,4 @@ class World:
     def checkPos(self, x, y):
         if x < 0 or y < 0 or x >= self.__width or y >= self.__height:
             return False
-        if self.__grid[x][y] == "floor":
-            return True
-        else:
-            return False
+        return self.__grid[x][y] == "floor"
