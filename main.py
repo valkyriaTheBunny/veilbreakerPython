@@ -18,7 +18,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.KEYDOWN:
+        elif event.type == pygame.KEYDOWN:
             key = pygame.key.get_pressed()
             pos = player.getPos()
 
@@ -32,6 +32,7 @@ while running:
                 pos[0] += 1
 
             if world.checkPos(pos[0], pos[1]):
+                print("key pressed")
                 player.setPos(pos[0], pos[1])
                 world.update()
 

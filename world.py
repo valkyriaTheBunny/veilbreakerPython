@@ -68,10 +68,9 @@ class World:
             if self.__is_area_connected(sx, sy):
                 break
 
-        self.__monList = []
         for i in range(self.__width):
             for j in range(self.__height):
-                if self.__grid[i][j] == "floor" and randint(0, 300) > 55:
+                if self.__grid[i][j] == "floor" and randint(0, 300) < 55:
                     mon = self.__generator.create()
                     mon.setPos(i, j)
                     self.__monList.append(mon)
@@ -88,6 +87,7 @@ class World:
             mon.show(surf)
 
     def update(self):
+        print("world update called")
         for mon in self.__monList:
             mon.move(self)
 
