@@ -62,7 +62,6 @@ class World:
 
     def genRoom(self):
         while True:
-            self.__grid = []
             self.__genNoise()
             self.__smoothing(10)
             sx, sy = self.sPos()
