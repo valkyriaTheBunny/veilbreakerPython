@@ -10,7 +10,7 @@ running = True
 player = Player()
 world = World()
 
-world.genRoom()
+world.genRoom(1)
 initPos = world.sPos()
 player.setPos(initPos[0], initPos[1])
 
@@ -32,7 +32,6 @@ while running:
                 pos[0] += 1
 
             if world.checkPos(pos[0], pos[1]):
-                print("key pressed")
                 player.setPos(pos[0], pos[1])
                 world.update()
 

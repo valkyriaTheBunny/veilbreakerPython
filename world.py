@@ -60,7 +60,7 @@ class World:
         total_floor = sum(row.count("floor") for row in self.__grid)
         return len(visited) == total_floor
 
-    def genRoom(self):
+    def genRoom(self, level):
         while True:
             self.__genNoise()
             self.__smoothing(10)
@@ -71,7 +71,7 @@ class World:
         for i in range(self.__width):
             for j in range(self.__height):
                 if self.__grid[i][j] == "floor" and randint(0, 300) < 55:
-                    mon = self.__generator.create()
+                    mon = self.__generator.create(level)
                     mon.setPos(i, j)
                     self.__monList.append(mon)
 
@@ -87,7 +87,6 @@ class World:
             mon.show(surf)
 
     def update(self):
-        print("world update called")
         for mon in self.__monList:
             mon.move(self)
 

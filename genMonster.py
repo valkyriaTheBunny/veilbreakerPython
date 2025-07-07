@@ -2,10 +2,11 @@ import pygame
 import random
 
 class Generic:
-    def __init__(self, name, health, equip):
+    def __init__(self, name, health, equip, color):
         self.name = name
         self.health = health
         self.equip = equip
+        self.color = color
         self.__x = 0
         self.__y = 0
 
@@ -27,9 +28,8 @@ class Generic:
         for dx, dy in directions:
             nx, ny = self.__x + dx, self.__y + dy
             if world.checkPos(nx, ny):
-                print(f"{self.name} moved from ({self.__x}, {self.__y}) to ({nx}, {ny})")
                 self.setPos(nx, ny)
                 break
 
     def show(self, surf):
-        pygame.draw.rect(surf, "green", (self.__x * 50, self.__y * 50, 50, 50))
+        pygame.draw.rect(surf, self.color, (self.__x * 50, self.__y * 50, 50, 50))
