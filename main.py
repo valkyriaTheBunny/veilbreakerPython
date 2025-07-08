@@ -1,5 +1,5 @@
-from player import Player
-from world import World
+from veilbreakerPython.characters.player import Player
+from veilbreakerPython.world.world import World
 import pygame
 
 pygame.init()

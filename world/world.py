@@ -2,7 +2,7 @@ from random import randint
 from datetime import datetime
 from collections import deque
 import pygame, random
-from monGenerator import Generator
+from veilbreakerPython.characters.monGenerator import Generator
 
 class World:
     def __init__(self):
