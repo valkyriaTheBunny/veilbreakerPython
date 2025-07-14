@@ -4,6 +4,7 @@ class Player:
     def __init__(self):
         self.__x = 0
         self.__y = 0
+        self.__equipment = "Dagger"
 
     def setPos(self, x, y):
         self.__x = x

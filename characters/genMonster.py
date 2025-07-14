@@ -2,7 +2,7 @@ import pygame
 import random
 
 class Generic:
-    def __init__(self, name, health, equip, color):
+    def __init__(self, name: str, health: int, equip, color: str):
         self.name = name
         self.health = health
         self.equip = equip

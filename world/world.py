@@ -2,7 +2,7 @@ from random import randint
 from datetime import datetime
 from collections import deque
 import pygame, random
-from veilbreakerPython.characters.monGenerator import Generator
+from characters.monGenerator import Generator
 
 class World:
     def __init__(self):
@@ -25,7 +25,7 @@ class World:
                 else:
                     self.__grid[i].append("floor")
 
-    def __smoothing(self, iterations=10):
+    def __smoothing(self, iterations:int =10):
         width, height = self.__width, self.__height
         for _ in range(iterations):
             new_grid = [["wall"] * height for _ in range(width)]
@@ -43,7 +43,7 @@ class World:
                     new_grid[x][y] = "floor" if walls < 5 else "wall"
             self.__grid = new_grid
 
-    def __is_area_connected(self, start_x, start_y):
+    def __is_area_connected(self, start_x: int, start_y: int):
         visited = set()
         queue = deque([(start_x, start_y)])
         visited.add((start_x, start_y))
@@ -60,7 +60,7 @@ class World:
         total_floor = sum(row.count("floor") for row in self.__grid)
         return len(visited) == total_floor
 
-    def genRoom(self, level):
+    def genRoom(self, level: int):
         while True:
             self.__genNoise()
             self.__smoothing(10)
@@ -75,7 +75,7 @@ class World:
                     mon.setPos(i, j)
                     self.__monList.append(mon)
 
-    def show(self, surf):
+    def show(self, surf: pygame.surface):
         for i in range(self.__width):
             for j in range(self.__height):
                 if self.__grid[i][j] == "wall":
@@ -96,7 +96,7 @@ class World:
                 if self.checkPos(i, j):
                     return [i, j]
 
-    def checkPos(self, x, y):
+    def checkPos(self, x: int, y: int):
         if x < 0 or y < 0 or x >= self.__width or y >= self.__height:
             return False
         return self.__grid[x][y] == "floor"

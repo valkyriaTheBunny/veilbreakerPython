@@ -1,5 +1,6 @@
-from veilbreakerPython.characters.player import Player
-from veilbreakerPython.world.world import World
+from characters.player import Player
+from world.world import World
+from equipment.weapons import Weapon
 import pygame
 
 pygame.init()
@@ -13,6 +14,10 @@ world = World()
 world.genRoom(1)
 initPos = world.sPos()
 player.setPos(initPos[0], initPos[1])
+
+dagger = Weapon("Dagger", 10)
+dagger.damage()
+
 
 while running:
     for event in pygame.event.get():

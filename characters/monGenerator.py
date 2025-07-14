@@ -1,4 +1,4 @@
-from veilbreakerPython.characters.genMonster import Generic
+from characters.genMonster import Generic
 from random import choice
 
 class Generator:
@@ -11,5 +11,5 @@ class Generator:
 
         ]
 
-    def create(self, level):
+    def create(self, level: int):
         return choice(self.__choices[(level - 1):(level + 1)])()
