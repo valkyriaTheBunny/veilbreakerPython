@@ -71,9 +71,11 @@ class World:
         for i in range(self.__width):
             for j in range(self.__height):
                 if self.__grid[i][j] == "floor" and randint(0, 300) < 55:
-                    mon = self.__generator.create(level)
-                    mon.setPos(i, j)
-                    self.__monList.append(mon)
+                    if self.__grid[i][j] != "occupied":
+                        mon = self.__generator.create(level)
+                        mon.setPos(i, j)
+                        self.__grid[i, j] = "occupied"
+                        self.__monList.append(mon)
 
     def show(self, surf: pygame.surface):
         for i in range(self.__width):
@@ -95,6 +97,9 @@ class World:
             for j in range(self.__height):
                 if self.checkPos(i, j):
                     return [i, j]
+
+    def makeUnoccupied(self, x, y):
+        self.__grid[x][y] = "floor"
 
     def checkPos(self, x: int, y: int):
         if x < 0 or y < 0 or x >= self.__width or y >= self.__height:

@@ -15,10 +15,6 @@ world.genRoom(1)
 initPos = world.sPos()
 player.setPos(initPos[0], initPos[1])
 
-dagger = Weapon("Dagger", 10)
-dagger.damage()
-
-
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
