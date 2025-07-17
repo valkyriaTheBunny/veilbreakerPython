@@ -31,6 +31,8 @@ class Generic:
                 world.makeUnoccupied(self.__x, self.__y)
                 self.setPos(nx, ny)
                 break
+            if world.isPlayer(nx, ny):
+                world.loadBattleScene()
 
     def show(self, surf):
         pygame.draw.rect(surf, self.color, (self.__x * 50, self.__y * 50, 50, 50))

@@ -14,6 +14,7 @@ world = World()
 world.genRoom(1)
 initPos = world.sPos()
 player.setPos(initPos[0], initPos[1])
+world[initPos[0], initPos[1]] = "player"
 
 while running:
     for event in pygame.event.get():
@@ -34,6 +35,7 @@ while running:
 
             if world.checkPos(pos[0], pos[1]):
                 player.setPos(pos[0], pos[1])
+                world[pos[0], pos[1]] = "player"
                 world.update()
 
     screen.fill("black")

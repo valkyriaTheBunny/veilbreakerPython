@@ -101,7 +101,15 @@ class World:
     def makeUnoccupied(self, x, y):
         self.__grid[x][y] = "floor"
 
+    def isPlayer(self, x, y):
+       if x < 0 or y < 0 or x >= self.__width or y >= self.__height:
+           return False
+       return self.__grid[x][y] == "player"
+
     def checkPos(self, x: int, y: int):
         if x < 0 or y < 0 or x >= self.__width or y >= self.__height:
             return False
         return self.__grid[x][y] == "floor"
+
+    def loadBattleScene():
+        pass
