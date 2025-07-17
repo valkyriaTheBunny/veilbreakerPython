@@ -31,7 +31,7 @@ class Generic:
                 world.makeUnoccupied(self.__x, self.__y)
                 self.setPos(nx, ny)
                 break
-            if world.isPlayer(nx, ny):
+            if world.checkPos(nx, ny, "player"):
                 world.loadBattleScene()
 
     def show(self, surf):

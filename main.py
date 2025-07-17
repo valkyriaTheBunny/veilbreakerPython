@@ -33,6 +33,9 @@ while running:
             if key[pygame.K_d] or key[pygame.K_RIGHT]:
                 pos[0] += 1
 
+            if world.checkPos(pos[0], pos[1], "occupied"):
+                world.loadBattleScene()
+
             if world.checkPos(pos[0], pos[1]):
                 player.setPos(pos[0], pos[1])
                 world[pos[0], pos[1]] = "player"
