@@ -39,7 +39,9 @@ while running:
                 mon = world.getGrid(posX, posY, player.getAtkVal())
                 if type(mon) != list:
                     player.attack(mon)
-            elif world.checkPos(posX, posY):
+                if mon and type(mon) != list:
+                    mon.attack(player)
+            if world.checkPos(posX, posY):
                 oPos = player.getPos()
                 oPosX = oPos[0]
                 oPosY = oPos[1]

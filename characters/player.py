@@ -7,7 +7,7 @@ class Player:
         self.__y = 0
         self.__equip = Weapon("Dagger", 5)
         self.level = 0
-        self.health = 100
+        self.health = 50
         self.experience = 0
 
     def setPos(self, x, y):
@@ -27,3 +27,4 @@ class Player:
 
     def show(self, surf):
         pygame.draw.rect(surf, "white", (self.__x * 50, self.__y * 50, 50,  50))
+        pygame.draw.rect(surf, (255, 0, 0), (self.__x * 50, self.__y * 50 + 45, self.health, 5))

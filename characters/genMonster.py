@@ -32,10 +32,11 @@ class Generic:
                 self.setPos(nx, ny)
                 break
             if world.checkPos(nx, ny, "player"):
-                self.__attack(player)
+                self.attack(player)
 
-    def __attack(self, target):
+    def attack(self, target):
         target.health -= self.equip.damage()
 
     def show(self, surf):
         pygame.draw.rect(surf, self.color, (self.__x * 50, self.__y * 50, 50, 50))
+        pygame.draw.rect(surf, (255, 0, 0), (self.__x * 50, self.__y * 50 + 45, self.health, 5))
