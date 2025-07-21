@@ -79,14 +79,14 @@ class World:
             if self.__is_area_connected(sx, sy):
                 break
 
-        for _ in range(2):
-            rand_x = randint(0, self.__width - 1)
-            rand_y = randint(0, self.__height - 1)
-            if self.__grid[rand_x][rand_y] != "occupied":
-                mon = self.__generator.create(level)
-                mon.setPos(rand_x, rand_y)
-                self.__grid[rand_x][rand_y] = "occupied"
-                self.__monList.append(mon)
+        for i in range(self.__width):
+            for j in range(self.__height):
+                if self.__grid[i][j] == "floor" and randint(0, 300) < 55:
+                    if self.__grid[i][j] != "occupied":
+                        mon = self.__generator.create(level)
+                        mon.setPos(i, j)
+                        self.__grid[i][j] = "occupied"
+                        self.__monList.append(mon
 
     def show(self, surf: pygame.surface):
         for i in range(self.__width):
