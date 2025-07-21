@@ -28,11 +28,14 @@ class Generic:
         for dx, dy in directions:
             nx, ny = self.__x + dx, self.__y + dy
             if world.checkPos(nx, ny):
-                world.makeUnoccupied(self.__x, self.__y)
+                world.getGrid()[self.__x][self.__y] = "floor"
                 self.setPos(nx, ny)
                 break
             if world.checkPos(nx, ny, "player"):
-                world.loadBattleScene()
+                self.__attack()
+
+    def __attack(self, target):
+        target.health -= self.equip.damage()
 
     def show(self, surf):
         pygame.draw.rect(surf, self.color, (self.__x * 50, self.__y * 50, 50, 50))
