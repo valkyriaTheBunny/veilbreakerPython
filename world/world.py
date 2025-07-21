@@ -12,9 +12,14 @@ class World:
         self.__grid = []
         self.__generator = Generator()
         ms = datetime.time(datetime.now()).microsecond
-        random.seed(ms * 100000 + ms)
+        random.seed(ms * 500000 + ms ** 2)
 
-    def getGrid(self):
+    def getGrid(self, x = None, y = None):
+        if x and y:
+            for mon in self.__monList:
+                if mon.getPos() == (x, y):
+                    print(mon.health)
+                    return mon
         return self.__grid
 
     def __genNoise(self):
@@ -105,4 +110,3 @@ class World:
         if x < 0 or y < 0 or x >= self.__width or y >= self.__height:
             return False
         return self.__grid[x][y] == value
-
