@@ -15,8 +15,11 @@ world.genRoom(1)
 initPos = world.sPos()
 player.setPos(initPos[0], initPos[1])
 world.getGrid()[initPos[0]][initPos[1]] = "player"
+dt = 0
 
 while running:
+    dt += clock.get_time()
+    world.update(player, dt)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -48,7 +51,7 @@ while running:
                 world.getGrid()[oPosX][oPosY] = "floor"
                 player.setPos(posX, posY)
                 world.getGrid()[posX][posY] = "player"
-                world.update(player)
+
 
     screen.fill("black")
     world.show(screen)
