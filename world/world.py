@@ -14,18 +14,8 @@ class World:
         ms = datetime.time(datetime.now()).microsecond
         random.seed(ms * 500000 + ms ** 2)
 
-    def getGrid(self, x = None, y = None, atkVal = None):
-        if x and y:
-            for i, mon in enumerate(self.__monList):
-                if mon.getPos() == (x, y) and mon.health <= atkVal:
-                   self.__monList.pop(i)
-                   self.__grid[x][y] = "floor"
-                elif mon.getPos() == (x, y):
-                    return mon
-        else:
-            return self.__grid
-
     def __genNoise(self):
+        #generates a starting map of wall and floor tiles
         noiseDen = 65
         for i in range(self.__width):
             self.__grid.append([])
@@ -37,6 +27,9 @@ class World:
                     self.__grid[i].append("floor")
 
     def __smoothing(self, iterations:int =10):
+        #smoothing to make the map more traversable
+        #sets the new values to a different grid
+        #then assigns the new grid to the original
         width, height = self.__width, self.__height
         for _ in range(iterations):
             new_grid = [["wall"] * height for _ in range(width)]
@@ -55,6 +48,8 @@ class World:
             self.__grid = new_grid
 
     def __is_area_connected(self, start_x: int, start_y: int):
+        #makes sure the floor area is all reachable
+        #so the player and enemies are not ever trapped
         visited = set()
         queue = deque([(start_x, start_y)])
         visited.add((start_x, start_y))
@@ -73,20 +68,26 @@ class World:
 
     def genRoom(self, level: int):
         while True:
+            #runs map generation methods until a completely
+            #traversable map is found
             self.__genNoise()
-            self.__smoothing(10)
+            self.__smoothing()
             sx, sy = self.sPos()
             if self.__is_area_connected(sx, sy):
                 break
 
+        #randomly generates monster starting positions
         for i in range(self.__width):
             for j in range(self.__height):
                 if self.__grid[i][j] == "floor" and randint(40, 1000) < 55:
-                    if self.__grid[i][j] != "occupied":
-                        mon = self.__generator.create(level)
-                        mon.setPos(i, j)
-                        self.__grid[i][j] = "occupied"
-                        self.__monList.append(mon)
+                    #generates a random monster class instance
+                    #marking its initially position as occupied so that
+                    #multiple monsters cannot spawn on the same square
+                    
+                    mon = self.__generator.create(level)
+                    mon.setPos(i, j)
+                    self.__grid[i][j] = "occupied"
+                    self.__monList.append(mon)
 
     def show(self, surf: pygame.surface):
         for i in range(self.__width):
@@ -116,3 +117,14 @@ class World:
         if x < 0 or y < 0 or x >= self.__width or y >= self.__height:
             return False
         return self.__grid[x][y] == value
+
+    def getGrid(self, x = None, y = None, atkVal = None):
+        if x and y:
+            for i, mon in enumerate(self.__monList):
+                if mon.getPos() == (x, y) and mon.health <= atkVal:
+                   self.__monList.pop(i)
+                   self.__grid[x][y] = "floor"
+                elif mon.getPos() == (x, y):
+                    return mon
+        else:
+            return self.__grid
