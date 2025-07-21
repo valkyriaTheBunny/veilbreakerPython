@@ -14,6 +14,9 @@ class World:
         ms = datetime.time(datetime.now()).microsecond
         random.seed(ms * 100000 + ms)
 
+    def getGrid(self):
+        return self.__grid
+
     def __genNoise(self):
         noiseDen = 65
         for i in range(self.__width):
@@ -74,7 +77,7 @@ class World:
                     if self.__grid[i][j] != "occupied":
                         mon = self.__generator.create(level)
                         mon.setPos(i, j)
-                        self.__grid[i, j] = "occupied"
+                        self.__grid[i][j] = "occupied"
                         self.__monList.append(mon)
 
     def show(self, surf: pygame.surface):
@@ -106,5 +109,5 @@ class World:
             return False
         return self.__grid[x][y] == value
 
-    def loadBattleScene():
+    def loadBattleScene(self):
         pass
