@@ -37,7 +37,8 @@ while running:
             posY = pos[1]
             if world.checkPos(posX, posY, "occupied"):
                 mon = world.getGrid(posX, posY, player.getAtkVal())
-                player.attack(mon)
+                if type(mon) != list:
+                    player.attack(mon)
             elif world.checkPos(posX, posY):
                 oPos = player.getPos()
                 oPosX = oPos[0]
@@ -45,7 +46,7 @@ while running:
                 world.getGrid()[oPosX][oPosY] = "floor"
                 player.setPos(posX, posY)
                 world.getGrid()[posX][posY] = "player"
-                #world.update(player)
+                world.update(player)
 
     screen.fill("black")
     world.show(screen)
