@@ -86,7 +86,7 @@ class World:
                         mon = self.__generator.create(level)
                         mon.setPos(i, j)
                         self.__grid[i][j] = "occupied"
-                        self.__monList.append(mon
+                        self.__monList.append(mon)
 
     def show(self, surf: pygame.surface):
         for i in range(self.__width):
