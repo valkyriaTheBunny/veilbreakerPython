@@ -14,13 +14,14 @@ class World:
         ms = datetime.time(datetime.now()).microsecond
         random.seed(ms * 500000 + ms ** 2)
 
-    def getGrid(self, x = None, y = None):
+    def getGrid(self, x = None, y = None, atkVal = None):
         if x and y:
-            for mon in self.__monList:
-                if mon.getPos() == (x, y):
+            for i, mon in enumerate(self.__monList):
+                if mon.getPos() == (x, y) and mon.health <= atkVal:
+                   self.__monList.pop(i)
+                   self.__grid[x][y] = "floor"
+                elif mon.getPos() == (x, y):
                     return mon
-                if mon.health <= 0:
-                    self.__monList.remove(mon)
         else:
             return self.__grid
 

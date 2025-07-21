@@ -14,6 +14,9 @@ class Player:
         self.__x = x
         self.__y = y
 
+    def getAtkVal(self):
+        return self.__equip.damage()
+
     def attack(self, target):
         target.health -= self.__equip.damage()
 
