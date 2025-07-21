@@ -36,8 +36,7 @@ while running:
             if world.checkPos(pos[0], pos[1], "occupied"):
                 mon = world.getGrid([pos[0]], [pos[1]])
                 player.attack(mon)
-
-            if world.checkPos(pos[0], pos[1]):
+            elif world.checkPos(pos[0], pos[1]):
                 player.setPos(pos[0], pos[1])
                 world.getGrid()[pos[0]][pos[1]] = "player"
                 #world.update(player)
