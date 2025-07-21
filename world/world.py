@@ -81,7 +81,7 @@ class World:
 
         for i in range(self.__width):
             for j in range(self.__height):
-                if self.__grid[i][j] == "floor" and randint(0, 300) < 55:
+                if self.__grid[i][j] == "floor" and randint(40, 1000) < 55:
                     if self.__grid[i][j] != "occupied":
                         mon = self.__generator.create(level)
                         mon.setPos(i, j)

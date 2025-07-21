@@ -5,10 +5,10 @@ from random import choice
 class Generator:
     def __init__(self):
         self.__choices = [
-            lambda: Generic("Goblin", 10, Weapon("Dagger", 5), "green", 150),
-            lambda: Generic("Troll", 10, Weapon("Club", 8), "aquamarine4", 180),
-            lambda: Generic("Orc", 12, Weapon("Tree Branch", 12), "chocolate4", 175),
-            lambda: Generic("Demon", 16, Weapon("Iron Sword", 15), "coral3", 160),
+            lambda: Generic("Goblin", 10, Weapon("Dagger", 5), "green", 200),
+            lambda: Generic("Troll", 10, Weapon("Club", 8), "aquamarine4", 280),
+            lambda: Generic("Orc", 12, Weapon("Tree Branch", 12), "chocolate4", 275),
+            lambda: Generic("Demon", 16, Weapon("Iron Sword", 15), "coral3", 195),
 
         ]
 
