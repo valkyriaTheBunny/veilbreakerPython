@@ -18,6 +18,8 @@ class Player:
         return self.__equip.damage()
 
     def attack(self, target):
+        if not target:
+            return
         target.health -= self.__equip.damage()
 
     def getPos(self):

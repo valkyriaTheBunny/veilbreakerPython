@@ -40,7 +40,9 @@ while running:
                 player.attack(mon)
             elif world.checkPos(posX, posY):
                 oPos = player.getPos()
-                world.getGrid()[posX][posY] = "floor"
+                oPosX = oPos[0]
+                oPosY = oPos[1]
+                world.getGrid()[oPosX][oPosY] = "floor"
                 player.setPos(posX, posY)
                 world.getGrid()[posX][posY] = "player"
                 #world.update(player)
