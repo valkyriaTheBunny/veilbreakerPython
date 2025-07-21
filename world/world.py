@@ -18,10 +18,11 @@ class World:
         if x and y:
             for mon in self.__monList:
                 if mon.getPos() == (x, y):
-                    print(mon)
-                    print(mon.health)
                     return mon
-        return self.__grid
+                if mon.health <= 0:
+                    self.__monList.remove(mon)
+        else:
+            return self.__grid
 
     def __genNoise(self):
         noiseDen = 65

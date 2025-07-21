@@ -33,12 +33,14 @@ while running:
             if key[pygame.K_d] or key[pygame.K_RIGHT]:
                 pos[0] += 1
 
-            if world.checkPos(pos[0], pos[1], "occupied"):
-                mon = world.getGrid([pos[0]], [pos[1]])
+            posX = pos[0]
+            posY = pos[1]
+            if world.checkPos(posX, posY, "occupied"):
+                mon = world.getGrid(posX, posY)
                 player.attack(mon)
-            elif world.checkPos(pos[0], pos[1]):
-                player.setPos(pos[0], pos[1])
-                world.getGrid()[pos[0]][pos[1]] = "player"
+            elif world.checkPos(posX, posY):
+                player.setPos(posX, posY)
+                world.getGrid()[posX][posY] = "player"
                 #world.update(player)
 
     screen.fill("black")
