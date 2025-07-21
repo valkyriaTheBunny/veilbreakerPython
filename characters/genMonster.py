@@ -18,7 +18,7 @@ class Generic:
     def getPos(self):
         return self.__x, self.__y
 
-    def move(self, world):
+    def move(self, world, player):
         if not world:
             return
 
@@ -32,7 +32,7 @@ class Generic:
                 self.setPos(nx, ny)
                 break
             if world.checkPos(nx, ny, "player"):
-                self.__attack()
+                self.__attack(player)
 
     def __attack(self, target):
         target.health -= self.equip.damage()

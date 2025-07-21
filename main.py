@@ -40,7 +40,7 @@ while running:
             if world.checkPos(pos[0], pos[1]):
                 player.setPos(pos[0], pos[1])
                 world.getGrid()[pos[0]][pos[1]] = "player"
-                world.update()
+                #world.update(player)
 
     screen.fill("black")
     world.show(screen)

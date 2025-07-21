@@ -18,6 +18,7 @@ class World:
         if x and y:
             for mon in self.__monList:
                 if mon.getPos() == (x, y):
+                    print(mon)
                     print(mon.health)
                     return mon
         return self.__grid
@@ -96,9 +97,9 @@ class World:
         for mon in self.__monList:
             mon.show(surf)
 
-    def update(self):
+    def update(self, player):
         for mon in self.__monList:
-            mon.move(self)
+            mon.move(self, player)
 
     def sPos(self):
         for i in range(self.__width):
