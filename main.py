@@ -57,8 +57,6 @@ while running:
                 player.setPos(pos[0], pos[1])
                 world.updateGrid(pos[0], pos[1], "player")
 
-
-
     screen.fill("black") #probably don't really need this line
     world.show(screen)
     player.show(screen)
