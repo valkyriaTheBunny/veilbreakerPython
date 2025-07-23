@@ -52,7 +52,8 @@ while running:
                 world.updateGrid(oPos[0], oPos[1], "floor")
                 player.setPos(pos[0], pos[1])
                 world.updateGrid(pos[0], pos[1], "player")
-            world.isDoor(pos[0], pos[1], dir)
+            if world.checkPos(pos[0], pos[1], "door"):
+                world.isDoor(pos[0], pos[1], dir)
 
     world.show(screen)
     player.show(screen)

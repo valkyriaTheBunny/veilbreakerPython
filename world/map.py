@@ -19,12 +19,18 @@ class World:
                 room = Room()
                 self.__rooms[i].append(room)
                 self.__rooms[i][j].genRoom(self.__level)
-                if i < 2:
+                if i < 3:
                     for k in range(23, 0, -1):
                         if self.__rooms[i][j].checkPos(k, 7):
                             break
                     self.__rooms[i][j].updateGrid(k, 7, "door")
-                    self.__doors.append(Door(i, j, "right"))
+                    self.__doors.append(Door("right", i, j))
+                if j < 3:
+                    for k in range(13, 0, -1):
+                        if self.__rooms[i][j].checkPos(12, k):
+                            break
+                    self.__rooms[i][j].updateGrid(12, k, "door")
+                    self.__doors.append(Door("down", i, j))
 
     def __moveRoom(self, dir: str):
         if dir == "left" and self.__roomNum > 0:
@@ -53,14 +59,13 @@ class World:
         self.__rooms[self.__row][self.__roomNum].updateGrid(x, y, value)
 
     def isDoor(self, x: int, y: int, dir: str):
-        if self.__rooms[self.__row][self.__roomNum].checkPos(x, y, "door"):
-            tDoor = Door(dir, self.__row, self.__roomNum)
+        tDoor = Door(dir, self.__row, self.__roomNum)
 
-            try:
-                index = self.__doors.index(tDoor)
-                self.__moveRoom(dir)
-            except ValueError:
-                pass
+        try:
+            index = self.__doors.index(tDoor)
+            self.__moveRoom(dir)
+        except ValueError:
+            print("Error")
 
     def checkPos(self, x: int, y: int, value: str = "floor"):
         return  self.__rooms[self.__row][self.__roomNum].checkPos(x, y, value)
