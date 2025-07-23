@@ -43,5 +43,8 @@ class World:
     def updateGrid(self, x: int, y: int, value: str):
         self.__rooms[self.__row][self.__roomNum].updateGrid(x, y, value)
 
-    def checkPos(self, x: int, y: int, value: str = "floor"):
+    def checkPos(self, x: int, y: int, value: str = "floor", caller: str = "monster"):
+        if caller == "main":
+            print(value)
+            print(self.__rooms[self.__row][self.__roomNum])
         self.__rooms[self.__row][self.__roomNum].checkPos(x, y, value)

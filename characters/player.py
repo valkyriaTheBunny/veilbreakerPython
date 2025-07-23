@@ -11,6 +11,7 @@ class Player:
         self.experience = 0
 
     def setPos(self, x, y):
+        print("i'm updating the position")
         self.__x = x
         self.__y = y
 

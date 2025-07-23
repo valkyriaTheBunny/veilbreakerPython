@@ -27,16 +27,21 @@ while running:
             pos = player.getPos()
 
             if key[pygame.K_w] or key[pygame.K_UP]:
+                print("up")
                 pos[1] -= 1
             if key[pygame.K_s] or key[pygame.K_DOWN]:
+                print("down")
                 pos[1] += 1
             if key[pygame.K_a] or key[pygame.K_LEFT]:
+                print("left")
                 pos[0] -= 1
             if key[pygame.K_d] or key[pygame.K_RIGHT]:
+                print("right")
                 pos[0] += 1
 
-
-            if world.checkPos(pos[0], pos[1], "occupied"):
+            print(world.checkPos(pos[0], pos[1], caller="main"))
+            if world.checkPos(pos[0], pos[1], "occupied", "main"):
+                print("ah! a monster")
                 mon = world.isOccupied(pos[0], pos[1], player.getAtkVal())
                 if mon:
                     player.attack(mon)
@@ -44,10 +49,12 @@ while running:
                 if mon:
                     mon.attack(player)
             if world.checkPos(pos[0], pos[1]):
+                print("safe")
                 oPos = player.getPos()
                 world.updateGrid(oPos[0], oPos[1], "floor")
                 player.setPos(pos[0], pos[1])
                 world.updateGrid(pos[0], pos[1], "player")
+
 
 
     screen.fill("black") #probably don't really need this line
