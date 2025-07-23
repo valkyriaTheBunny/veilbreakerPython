@@ -53,7 +53,7 @@ while running:
                 world.getGrid()[posX][posY] = "player"
 
 
-    screen.fill("black")
+    screen.fill("black") #probably don't really need this line
     world.show(screen)
     player.show(screen)
     pygame.display.flip()

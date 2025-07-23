@@ -83,13 +83,14 @@ class World:
                     #generates a random monster class instance
                     #marking its initially position as occupied so that
                     #multiple monsters cannot spawn on the same square
-                    
+
                     mon = self.__generator.create(level)
                     mon.setPos(i, j)
                     self.__grid[i][j] = "occupied"
                     self.__monList.append(mon)
 
     def show(self, surf: pygame.surface):
+        #shows the map
         for i in range(self.__width):
             for j in range(self.__height):
                 if self.__grid[i][j] == "wall":
@@ -101,6 +102,7 @@ class World:
             mon.show(surf)
 
     def update(self, player, dt):
+        #updates the world, specifically monsters in the world
         for i, mon in enumerate(self.__monList):
             if mon.health <= 0:
                 self.__monList.pop(i)
@@ -108,17 +110,27 @@ class World:
                 mon.move(self, player, dt)
 
     def sPos(self):
+        #generates a starting position for the player (the first non wall)
         for i in range(self.__width):
             for j in range(self.__height):
                 if self.checkPos(i, j):
                     return [i, j]
 
     def checkPos(self, x: int, y: int, value:str = "floor"):
+        #checks if a grid coordinate's value is equal to a given value
+        #generally used for movement with a default of 'floor'
+        #but also used to check for whether combat should happen
+        #with the values 'occupied' and 'player'
         if x < 0 or y < 0 or x >= self.__width or y >= self.__height:
             return False
         return self.__grid[x][y] == value
 
     def getGrid(self, x = None, y = None, atkVal = None):
+        #returns a monster if there is a monster at a given grid location
+        #or false if there is no monster
+        #or if no position is given, returns the grid
+        #the return grid functionality is useful for
+        #updating grid locations to and from occupied
         if x and y:
             for i, mon in enumerate(self.__monList):
                 if mon.getPos() == (x, y) and mon.health <= atkVal:
@@ -126,5 +138,6 @@ class World:
                    self.__grid[x][y] = "floor"
                 elif mon.getPos() == (x, y):
                     return mon
+            return False
         else:
             return self.__grid
