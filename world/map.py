@@ -14,7 +14,8 @@ class World:
         for i in range(3):
             self.__rooms.append([])
             for j in range(3):
-                self.__rooms[i].append(Room())
+                room = Room()
+                self.__rooms[i].append(room)
                 self.__rooms[i][j].genRoom(self.__level)
 
     def moveRoom(self, dir: str):
@@ -43,10 +44,8 @@ class World:
     def updateGrid(self, x: int, y: int, value: str):
         self.__rooms[self.__row][self.__roomNum].updateGrid(x, y, value)
 
-    def checkPos(self, x: int, y: int, value: str = "floor", caller: str = "monster"):
-        if caller == "main":
-            print(value)
-            print(self.__rooms[self.__row][self.__roomNum])
-            print(self.__row)
-            print(self.__roomNum)
-        self.__rooms[self.__row][self.__roomNum].checkPos(x, y, value)
+    def checkPos(self, x: int, y: int, value: str = "floor"):
+        return  self.__rooms[self.__row][self.__roomNum].checkPos(x, y, value)
+
+    def isOccupied(self, x: int, y: int, atkVal: int):
+        return self.__rooms[self.__row][self.__roomNum].isOccupied(x, y, atkVal)
