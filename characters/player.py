@@ -26,5 +26,5 @@ class Player:
         return [self.__x, self.__y]
 
     def show(self, surf):
-        pygame.draw.rect(surf, "white", (self.__x * 50, self.__y * 50, 50,  50))
+        pygame.draw.rect(surf, "cornsilk4", (self.__x * 50, self.__y * 50, 50,  50))
         pygame.draw.rect(surf, (255, 0, 0), (self.__x * 50, self.__y * 50 + 45, self.health, 5))

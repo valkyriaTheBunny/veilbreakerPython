@@ -17,6 +17,11 @@ class World:
                 room = Room()
                 self.__rooms[i].append(room)
                 self.__rooms[i][j].genRoom(self.__level)
+                if i < 2:
+                    for k in range(23, 0, -1):
+                        if self.__rooms[i][j].checkPos(k, 7):
+                            break
+                    self.__rooms[i][j].updateGrid(k, 7, "door")
 
     def moveRoom(self, dir: str):
         if dir == "left" and self.__roomNum > 0:

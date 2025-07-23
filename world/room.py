@@ -91,8 +91,10 @@ class Room:
             for j in range(self.height):
                 if self.__grid[i][j] == "wall":
                     pygame.draw.rect(surf, "purple", (i * 50, j * 50, 50, 50))
-                else:
+                elif self.__grid[i][j] == "floor":
                     pygame.draw.rect(surf, "gold", (i * 50, j * 50, 50, 50))
+                elif self.__grid[i][j] == "door":
+                    pygame.draw.rect(surf, "white", (i * 50, j * 50, 50, 50))
 
         for mon in self.__monList:
             mon.show(surf)
