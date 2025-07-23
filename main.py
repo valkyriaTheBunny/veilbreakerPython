@@ -1,6 +1,5 @@
 from characters.player import Player
 from world.map import World
-from equipment.weapons import Weapon
 import pygame
 
 pygame.init()
