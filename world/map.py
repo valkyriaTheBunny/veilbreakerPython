@@ -91,7 +91,7 @@ class World:
             mon.show(surf)
 
     def update(self, player, dt):
-        self.__manager.update(player, dt)
+        self.__manager.update(self, player, dt)
 
     def sPos(self):
         #generates a starting position for the player (the first non wall)

@@ -16,7 +16,7 @@ class Manager:
         #randomly generates monster starting positions
         for i in range(self.__width):
             for j in range(self.__height):
-                if self.__grid[i][j] == "floor" and randint(40, 1000) < 55:
+                if map[i][j] == "floor" and randint(40, 1000) < 55:
                     #generates a random monster class instance
                     #marking its initially position as occupied so that
                     #multiple monsters cannot spawn on the same square
@@ -28,7 +28,7 @@ class Manager:
 
         return self.__monList
 
-    def update(self, player, dt):
+    def update(self, world, player, dt):
         #updates the world, specifically monsters in the world
         #needs dt so that monsters can move independent of the player
         #and player so that monsters can attack the player
@@ -36,7 +36,7 @@ class Manager:
             if mon.health <= 0:
                 self.__monList.pop(i)
             else:
-                mon.move(self, player, dt)
+                mon.move(world, player, dt)
 
     def isAttackable(self, map: list[list[int]], x: int, y: int, atkVal: int):
         #returns a monster if there is a monster at a given grid location
