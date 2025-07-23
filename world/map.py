@@ -47,4 +47,6 @@ class World:
         if caller == "main":
             print(value)
             print(self.__rooms[self.__row][self.__roomNum])
+            print(self.__row)
+            print(self.__roomNum)
         self.__rooms[self.__row][self.__roomNum].checkPos(x, y, value)

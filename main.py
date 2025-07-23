@@ -25,6 +25,7 @@ while running:
         elif event.type == pygame.KEYDOWN:
             key = pygame.key.get_pressed()
             pos = player.getPos()
+            print(pos)
 
             if key[pygame.K_w] or key[pygame.K_UP]:
                 print("up")
@@ -39,6 +40,7 @@ while running:
                 print("right")
                 pos[0] += 1
 
+            print(pos)
             print(world.checkPos(pos[0], pos[1], caller="main"))
             if world.checkPos(pos[0], pos[1], "occupied", "main"):
                 print("ah! a monster")
@@ -48,7 +50,7 @@ while running:
                 #the second if here is to make sure that a dead monster does not try to attack
                 if mon:
                     mon.attack(player)
-            if world.checkPos(pos[0], pos[1]):
+            if world.checkPos(pos[0], pos[1], caller="main"):
                 print("safe")
                 oPos = player.getPos()
                 world.updateGrid(oPos[0], oPos[1], "floor")
