@@ -10,7 +10,7 @@ class World:
         for i in range(3):
             self.__rooms.append([])
             for j in range(3):
-                self.__rooms[i].apppend(Room())
+                self.__rooms[i].append(Room())
                 self.__rooms[i][j].genRoom(self.__level)
 
     def moveRoom(self, dir: str):
@@ -23,15 +23,18 @@ class World:
         elif dir == "down" and self.__row < 3:
             self.__row += 1
 
-    def genRoom(self):
-        self.__rooms[self.__row][self.__roomNum].show()
+    def show(self, surf):
+        self.__rooms[self.__row][self.__roomNum].show(surf)
 
     def sPos(self):
         #generates a starting position for the player (the first non wall)
         for i in range(self.__rooms[0][0].width):
             for j in range(self.__rooms[0][0].height):
-                if self.__rooms[0].checkPos(i, j):
+                if self.__rooms[0][0].checkPos(i, j):
                     return [i, j]
+
+    def update(self, player, dt):
+        self.__rooms[0][0].update(player, dt)
 
     def updateGrid(self, x: int, y: int, value: str):
         self.__rooms[self.__row][self.__roomNum].updateGrid(x, y, value)

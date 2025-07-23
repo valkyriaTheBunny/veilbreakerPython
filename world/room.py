@@ -66,13 +66,20 @@ class Room:
         total_floor = sum(row.count("floor") for row in self.__grid)
         return len(visited) == total_floor
 
+    def __sPos(self):
+        #generates a starting position for the player (the first non wall)
+        for i in range(self.width):
+            for j in range(self.height):
+                if self.checkPos(i, j):
+                    return [i, j]
+
     def genRoom(self, level: int):
         while True:
             #runs map generation methods until a completely
             #traversable map is found
             self.__genNoise()
             self.__smoothing()
-            sx, sy = self.sPos()
+            sx, sy = self.__sPos()
             if self.__is_area_connected(sx, sy):
                 break
 

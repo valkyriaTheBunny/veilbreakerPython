@@ -11,7 +11,6 @@ running = True
 player = Player()
 world = World()
 
-world.genRoom()
 initPos = world.sPos()
 player.setPos(initPos[0], initPos[1])
 world.updateGrid(initPos[0], initPos[1], "player")
