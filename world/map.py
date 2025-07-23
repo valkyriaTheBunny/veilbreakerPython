@@ -1,8 +1,10 @@
 from  world.room import Room
+from world.door import Door
 
 class World:
     def __init__(self):
         self.__rooms = []
+        self.__doors = []
         self.__level = 1
         self.__row = 0
         self.__roomNum = 0
@@ -22,6 +24,7 @@ class World:
                         if self.__rooms[i][j].checkPos(k, 7):
                             break
                     self.__rooms[i][j].updateGrid(k, 7, "door")
+                    self.__doors.append(Door("right"))
 
     def __moveRoom(self, dir: str):
         if dir == "left" and self.__roomNum > 0:
@@ -51,7 +54,8 @@ class World:
 
     def isDoor(self, x: int, y: int, dir: str):
         if self.__rooms[self.__row][self.__roomNum].checkPos(x, y, "door"):
-            pass
+            if self.__doors[ _______ ].getDir() == dir:
+                self.__moveRoom(dir)
 
     def checkPos(self, x: int, y: int, value: str = "floor"):
         return  self.__rooms[self.__row][self.__roomNum].checkPos(x, y, value)
