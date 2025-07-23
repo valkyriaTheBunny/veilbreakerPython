@@ -103,6 +103,8 @@ class World:
 
     def update(self, player, dt):
         #updates the world, specifically monsters in the world
+        #needs dt so that monsters can move independent of the player
+        #and player so that monsters can attack the player
         for i, mon in enumerate(self.__monList):
             if mon.health <= 0:
                 self.__monList.pop(i)
