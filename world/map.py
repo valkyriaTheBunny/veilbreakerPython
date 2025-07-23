@@ -1,8 +1,8 @@
-from characters.monGenerator import Generator
+from  world.monsterManager import Manager
 from random import randint
 from datetime import datetime
 from collections import deque
-import pygame, random, pickle
+import pygame, random
 
 class World:
     def __init__(self):
@@ -10,7 +10,7 @@ class World:
         self.__width = 24
         self.__monList = []
         self.__grid = []
-        self.__generator = Generator()
+        self.__manager = Manager
         ms = datetime.time(datetime.now()).microsecond
         random.seed(ms * 500000 + ms ** 2)
 
@@ -76,18 +76,7 @@ class World:
             if self.__is_area_connected(sx, sy):
                 break
 
-        #randomly generates monster starting positions
-        for i in range(self.__width):
-            for j in range(self.__height):
-                if self.__grid[i][j] == "floor" and randint(40, 1000) < 55:
-                    #generates a random monster class instance
-                    #marking its initially position as occupied so that
-                    #multiple monsters cannot spawn on the same square
-
-                    mon = self.__generator.create(level)
-                    mon.setPos(i, j)
-                    self.__grid[i][j] = "occupied"
-                    self.__monList.append(mon)
+        self.__monList = self.__manager.genMons(level)
 
     def show(self, surf: pygame.surface):
         #shows the map
@@ -102,14 +91,7 @@ class World:
             mon.show(surf)
 
     def update(self, player, dt):
-        #updates the world, specifically monsters in the world
-        #needs dt so that monsters can move independent of the player
-        #and player so that monsters can attack the player
-        for i, mon in enumerate(self.__monList):
-            if mon.health <= 0:
-                self.__monList.pop(i)
-            else:
-                mon.move(self, player, dt)
+        self.__manager.update(player, dt)
 
     def sPos(self):
         #generates a starting position for the player (the first non wall)
@@ -127,19 +109,8 @@ class World:
             return False
         return self.__grid[x][y] == value
 
-    def getGrid(self, x = None, y = None, atkVal = None):
-        #returns a monster if there is a monster at a given grid location
-        #or false if there is no monster
-        #or if no position is given, returns the grid
-        #the return grid functionality is useful for
-        #updating grid locations to and from occupied
-        if x and y:
-            for i, mon in enumerate(self.__monList):
-                if mon.getPos() == (x, y) and mon.health <= atkVal:
-                   self.__monList.pop(i)
-                   self.__grid[x][y] = "floor"
-                elif mon.getPos() == (x, y):
-                    return mon
-            return False
-        else:
-            return self.__grid
+    def isOccupied(self, x: int, y: int, atkVal: int):
+        return self.__manager.isAttackable(x, y, atkVal)
+
+    def updateGrid(self, x: int, y: int, newVal: str):
+        self.__grid[x][y] = newVal

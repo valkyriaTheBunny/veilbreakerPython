@@ -34,8 +34,9 @@ class Generic:
                     self.attack(player)
                     player.attack(self)
                 if world.checkPos(nx, ny):
-                    world.getGrid()[self.__x][self.__y] = "floor"
+                    world.updateGrid(self.__x, self.__y, "floor")
                     self.setPos(nx, ny)
+                    world.updateGrid(self.__x, self.__y, "occupied")
                     break
 
     def attack(self, target):

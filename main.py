@@ -1,5 +1,5 @@
 from characters.player import Player
-from world.world import World
+from veilbreakerPython.world.map import World
 from equipment.weapons import Weapon
 import pygame
 
@@ -14,7 +14,7 @@ world = World()
 world.genRoom(1)
 initPos = world.sPos()
 player.setPos(initPos[0], initPos[1])
-world.getGrid()[initPos[0]][initPos[1]] = "player"
+world.updateGrid(initPos[0], initPos[1], "player")
 dt = 0
 
 while running:
@@ -36,21 +36,19 @@ while running:
             if key[pygame.K_d] or key[pygame.K_RIGHT]:
                 pos[0] += 1
 
-            posX = pos[0]
-            posY = pos[1]
-            if world.checkPos(posX, posY, "occupied"):
-                mon = world.getGrid(posX, posY, player.getAtkVal())
-                if type(mon) != list:
+
+            if world.checkPos(pos[0], pos[1], "occupied"):
+                mon = world.isOccupied(pos[0], pos[1], player.getAtkVal())
+                if mon:
                     player.attack(mon)
-                if mon and type(mon) != list:
+                #the second if here is to make sure that a dead monster does not try to attack
+                if mon:
                     mon.attack(player)
-            if world.checkPos(posX, posY):
+            if world.checkPos(pos[0], pos[1]):
                 oPos = player.getPos()
-                oPosX = oPos[0]
-                oPosY = oPos[1]
-                world.getGrid()[oPosX][oPosY] = "floor"
-                player.setPos(posX, posY)
-                world.getGrid()[posX][posY] = "player"
+                world.updateGrid(oPos[0], oPos[1], "floor")
+                player.setPos(pos[0], pos[1])
+                world.updateGrid(pos[0], pos[1], "player")
 
 
     screen.fill("black") #probably don't really need this line
