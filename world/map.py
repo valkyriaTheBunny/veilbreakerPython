@@ -24,7 +24,7 @@ class World:
                         if self.__rooms[i][j].checkPos(k, 7):
                             break
                     self.__rooms[i][j].updateGrid(k, 7, "door")
-                    self.__doors.append(Door("right"))
+                    self.__doors.append(Door(i, j, "right"))
 
     def __moveRoom(self, dir: str):
         if dir == "left" and self.__roomNum > 0:
@@ -54,8 +54,13 @@ class World:
 
     def isDoor(self, x: int, y: int, dir: str):
         if self.__rooms[self.__row][self.__roomNum].checkPos(x, y, "door"):
-            if self.__doors[ _______ ].getDir() == dir:
+            tDoor = Door(dir, self.__row, self.__roomNum)
+
+            try:
+                index = self.__doors.index(tDoor)
                 self.__moveRoom(dir)
+            except ValueError:
+                pass
 
     def checkPos(self, x: int, y: int, value: str = "floor"):
         return  self.__rooms[self.__row][self.__roomNum].checkPos(x, y, value)
