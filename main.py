@@ -18,7 +18,7 @@ dt = 0
 
 while running:
     dt += clock.get_time()
-    #world.update(player, dt)
+    world.update(player, dt)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
