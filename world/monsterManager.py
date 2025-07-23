@@ -12,7 +12,7 @@ class Manager:
         ms = datetime.time(datetime.now()).microsecond
         random.seed(ms * 500000 + ms ** 2)
 
-    def genMons(self, level: int):
+    def genMons(self, map: list[list[int]], level: int):
         #randomly generates monster starting positions
         for i in range(self.__width):
             for j in range(self.__height):
@@ -23,7 +23,7 @@ class Manager:
 
                     mon = self.__generator.create(level)
                     mon.setPos(i, j)
-                    self.__grid[i][j] = "occupied"
+                    map[i][j] = "occupied"
                     self.__monList.append(mon)
 
         return self.__monList
@@ -38,13 +38,13 @@ class Manager:
             else:
                 mon.move(self, player, dt)
 
-    def isAttackable(self, x: int, y: int, atkVal: int):
+    def isAttackable(self, map: list[list[int]], x: int, y: int, atkVal: int):
         #returns a monster if there is a monster at a given grid location
         #or false if there is no monster
         for i, mon in enumerate(self.__monList):
             if mon.getPos() == (x, y) and mon.health <= atkVal:
                 self.__monList.pop(i)
-                self.__grid[x][y] = "floor"
+                map[x][y] = "floor"
             elif mon.getPos() == (x, y):
                 return mon
         return False

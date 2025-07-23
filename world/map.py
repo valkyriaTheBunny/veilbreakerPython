@@ -10,7 +10,7 @@ class World:
         self.__width = 24
         self.__monList = []
         self.__grid = []
-        self.__manager = Manager
+        self.__manager = Manager()
         ms = datetime.time(datetime.now()).microsecond
         random.seed(ms * 500000 + ms ** 2)
 
@@ -76,7 +76,7 @@ class World:
             if self.__is_area_connected(sx, sy):
                 break
 
-        self.__monList = self.__manager.genMons(level)
+        self.__monList = self.__manager.genMons(self.__grid, level)
 
     def show(self, surf: pygame.surface):
         #shows the map
@@ -110,7 +110,7 @@ class World:
         return self.__grid[x][y] == value
 
     def isOccupied(self, x: int, y: int, atkVal: int):
-        return self.__manager.isAttackable(x, y, atkVal)
+        return self.__manager.isAttackable(self.__grid, x, y, atkVal)
 
     def updateGrid(self, x: int, y: int, newVal: str):
         self.__grid[x][y] = newVal

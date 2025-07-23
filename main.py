@@ -1,5 +1,5 @@
 from characters.player import Player
-from veilbreakerPython.world.map import World
+from world.map import World
 from equipment.weapons import Weapon
 import pygame
 
