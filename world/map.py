@@ -7,6 +7,10 @@ class World:
         self.__row = 0
         self.__roomNum = 0
 
+    def levelUp(self):
+        self.__level += 1
+
+    def genRooms(self):
         for i in range(3):
             self.__rooms.append([])
             for j in range(3):
@@ -34,7 +38,7 @@ class World:
                     return [i, j]
 
     def update(self, player, dt):
-        self.__rooms[0][0].update(player, dt)
+        self.__rooms[self.__row][self.__roomNum].update(player, dt)
 
     def updateGrid(self, x: int, y: int, value: str):
         self.__rooms[self.__row][self.__roomNum].updateGrid(x, y, value)
