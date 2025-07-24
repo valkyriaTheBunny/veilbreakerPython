@@ -1,4 +1,5 @@
 from  world.monsterManager import Manager
+from world.healFount import Fountain
 from random import randint
 from datetime import datetime
 from collections import deque
@@ -82,7 +83,8 @@ class Room:
             sx, sy = self.__sPos()
             if self.__is_area_connected(sx, sy):
                 break
-
+        self.__grid[12][7] = "fount"
+        self.__fount = Fountain(12, 7)
         self.__monList = self.__manager.genMons(self.__grid, level)
 
     def show(self, surf: pygame.surface):
@@ -95,6 +97,8 @@ class Room:
                     pygame.draw.rect(surf, "gold", (i * 50, j * 50, 50, 50))
                 elif self.__grid[i][j] == "door":
                     pygame.draw.rect(surf, "white", (i * 50, j * 50, 50, 50))
+                elif self.__grid[i][j] == "fount":
+                    pygame.draw.rect(surf, "deeppink2", (i * 50, j * 50, 50, 50))
 
         for mon in self.__monList:
             mon.show(surf)
@@ -116,3 +120,6 @@ class Room:
 
     def updateGrid(self, x: int, y: int, newVal: str):
         self.__grid[x][y] = newVal
+
+    def runFount(self, player):
+        self.__fount.heal(player)

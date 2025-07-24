@@ -68,3 +68,6 @@ class World:
 
     def isOccupied(self, x: int, y: int, atkVal: int):
         return self.__rooms[self.__row][self.__roomNum].isOccupied(x, y, atkVal)
+
+    def runFount(self, player):
+        self.__rooms[self.__row][self.__roomNum].runFount(player)

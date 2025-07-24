@@ -10,6 +10,9 @@ class Player:
         self.health = 50
         self.experience = 0
 
+    def modHealth(self):
+        self.health = 50
+
     def setPos(self, x, y):
         self.__x = x
         self.__y = y

@@ -56,6 +56,8 @@ while running:
                 world.isDoor(pos[0], pos[1], dir)
                 nPos = world.sPos()
                 player.setPos(nPos[0], nPos[1])
+            if world.checkPos(pos[0], pos[1], "fount"):
+                world.runFount(player)
 
     world.show(screen)
     player.show(screen)
