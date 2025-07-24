@@ -25,32 +25,16 @@ class World:
                             break
                     self.__rooms[i][j].updateGrid(k, 7, "door")
                     self.__doors.append(Door("right", i, j))
-                if i > 0 and i < 3:
-                    for k in range(23):
-                        if self.__rooms[i][j].checkPos(k, 7):
-                            break
-                    self.__rooms[i][j].updateGrid(k, 7, "door")
-                    self.__doors.append(Door("left", i, j))
                 if j < 3:
                     for k in range(13, 0, -1):
                         if self.__rooms[i][j].checkPos(12, k):
                             break
                     self.__rooms[i][j].updateGrid(12, k, "door")
                     self.__doors.append(Door("down", i, j))
-                if j > 0 and j < 3:
-                    for k in range(13):
-                        if self.__rooms[i][j].checkPos(12, k):
-                            break
-                    self.__rooms[i][j].updateGrid(12, k, "door")
-                    self.__doors.append(Door("up", i, j))
 
     def __moveRoom(self, dir: str):
-        if dir == "left" and self.__roomNum > 0:
-            self.__rooomNum -= 1
-        elif dir == "right" and self.__roomNum < 3:
+        if dir == "right" and self.__roomNum < 3:
             self.__roomNum += 1
-        elif dir == "up" and self.__row > 0:
-            self.__row -= 1
         elif dir == "down" and self.__row < 3:
             self.__row += 1
 
