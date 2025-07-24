@@ -49,7 +49,7 @@ class World:
         #generates a starting position for the player (the first non wall)
         for i in range(self.__rooms[0][0].width):
             for j in range(self.__rooms[0][0].height):
-                if self.__rooms[0][0].checkPos(i, j):
+                if self.__rooms[self.__row][self.__roomNum].checkPos(i, j):
                     return [i, j]
 
     def update(self, player, dt):

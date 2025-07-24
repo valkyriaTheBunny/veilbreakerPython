@@ -28,15 +28,17 @@ class Manager:
 
         return self.__monList
 
-    def update(self, world, player, dt):
+    def update(self, room, player, dt):
         #updates the world, specifically monsters in the world
         #needs dt so that monsters can move independent of the player
         #and player so that monsters can attack the player
         for i, mon in enumerate(self.__monList):
             if mon.health <= 0:
-                self.__monList.pop(i)
+                deadMon = self.__monList.pop(i)
+                pos = deadMon.getPos()
+                room.updateGrid(pos[0], pos[1], "floor")
             else:
-                mon.move(world, player, dt)
+                mon.move(room, player, dt)
 
     def isAttackable(self, map: list[list[int]], x: int, y: int, atkVal: int):
         #returns a monster if there is a monster at a given grid location
