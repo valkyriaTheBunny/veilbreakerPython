@@ -17,18 +17,30 @@ class World:
             self.__rooms.append(room)
             self.__rooms[i].genRoom(self.__level)
             if i <= 7:
+                placed = False
                 for k in range(23, 0, -1):
                     if self.__rooms[i].checkPos(k, 7):
+                        print(f"placing right door in room {i}, position ({k}, 7)")
+                        self.__rooms[i].updateGrid(k, 7, "door")
+                        self.__doors.append(Door("right", i))
+                        placed = True
                         break
-                self.__rooms[i].updateGrid(k, 7, "door")
-                self.__doors.append(Door("right", i))
+
+                if not placed:
+                    print(f"Warning. Room index {i} does not have a right door")
 
             if i > 0:
+                placed = False
                 for k in range(23):
                     if self.__rooms[i].checkPos(k, 7):
+                        print(f"placing left door in room {i}, position ({k}, 7)")
+                        self.__rooms[i].updateGrid(k, 7, "door")
+                        self.__doors.append(Door("left", i))
+                        placed = True
                         break
-                self.__rooms[i].updateGrid(k, 7, "door")
-                self.__doors.append(Door("left", i))
+
+                if not placed:
+                    print(f"Warning. Room index {i} does not have a left door")
 
     def __moveRoom(self, dir: str):
         if dir == "right" and self.__roomNum < 8:
