@@ -16,7 +16,7 @@ class World:
             room = Room()
             self.__rooms.append(room)
             self.__rooms[i].genRoom(self.__level)
-            if i < 7:
+            if i <= 7:
                 for k in range(23, 0, -1):
                     if self.__rooms[i].checkPos(k, 7):
                         break
@@ -31,9 +31,9 @@ class World:
                 self.__doors.append(Door("left", i))
 
     def __moveRoom(self, dir: str):
-        if dir == "right" and self.__roomNum < 3:
+        if dir == "right" and self.__roomNum < 8:
             self.__roomNum += 1
-        elif dir == "left" and self.__roomNum < 3:
+        elif dir == "left" and self.__roomNum > 0:
             self.__roomNum -= 1
 
     def show(self, surf):
@@ -57,9 +57,12 @@ class World:
 
         try:
             index = self.__doors.index(tDoor)
-            self.__moveRoom(dir)
+
+            if index >= 0:
+                self.__moveRoom(dir)
+                self.updateGrid(x - 1, y, "floor")
         except ValueError:
-            print("Error")
+            pass
 
     def checkPos(self, x: int, y: int, value: str = "floor"):
         return  self.__rooms[self.__roomNum].checkPos(x, y, value)
