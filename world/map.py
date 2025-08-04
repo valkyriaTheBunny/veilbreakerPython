@@ -16,7 +16,7 @@ class World:
             room = Room()
             self.__rooms.append(room)
             self.__rooms[i].genRoom(self.__level)
-            if i < 8:
+            if i < 7:
                 for k in range(23, 0, -1):
                     if self.__rooms[i].checkPos(k, 7):
                         break
@@ -69,3 +69,10 @@ class World:
 
     def runFount(self, player):
         self.__rooms[self.__roomNum].runFount(player)
+
+    def empty(self):
+        for room in self.__rooms:
+            if not room.isEmpty():
+                return False
+
+        return True

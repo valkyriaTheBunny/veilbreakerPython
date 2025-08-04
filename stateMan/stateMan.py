@@ -21,11 +21,12 @@ class StateManager:
             player.setPos(initPos[0], initPos[1])
             world.updateGrid(initPos[0], initPos[1], "player")
             dt = 0
+            runtime = 0
             dir = None
 
             while running:
-                dt += clock.get_time()
-                world.update(player, dt)
+                runtime += dt
+                world.update(player, runtime)
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         running = False
@@ -65,9 +66,31 @@ class StateManager:
                         if world.checkPos(pos[0], pos[1], "fount"):
                             world.runFount(player)
 
+                    if world.empty():
+                        self.__state == "Score"
+                        self.__runtime = runtime
+                        running = False
+
                 world.show(self.__screen)
                 player.show(self.__screen)
                 pygame.display.flip()
-                clock.tick(60)
+                dt = clock.tick(60)
 
             pygame.quit()
+        elif self.__state == "Score":
+            running = True
+
+            while running:
+                self.__screen.fill("black")
+                font = pygame.font.Font('.assets/font/JMH Typewriter.ttf')
+
+                hours = self.__runtime // 3600000
+                minutes = (self.__runtime % 3600000) // 60000
+                seconds = (self.__runtime % 60000) // 1000
+                milli = self.__runtime % 1000
+
+                runText = font.render(f'Congradulations! Your runtime was: {hours}:{minutes}:{seconds}.{milli}')
+                runTextRect = runText.get_rect()
+                runTextRect.center = (600, 350)
+
+                self.__screen.blit(runText)

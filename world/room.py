@@ -123,3 +123,7 @@ class Room:
 
     def runFount(self, player):
         self.__fount.heal(player)
+
+    def isEmpty(self):
+        if self.__monList == []:
+            return True
