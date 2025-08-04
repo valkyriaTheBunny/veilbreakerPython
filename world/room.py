@@ -84,7 +84,7 @@ class Room:
             if self.__is_area_connected(sx, sy):
                 break
         self.__grid[12][7] = "fount"
-        self.__fount = Fountain(12, 7)
+        self.__fount = Fountain(12, 7, level)
         self.__monList = self.__manager.genMons(self.__grid, level)
 
     def show(self, surf: pygame.surface):
