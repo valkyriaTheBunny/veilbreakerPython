@@ -4,7 +4,6 @@ from world.door import Door
 class World:
     def __init__(self):
         self.__rooms = []
-        self.__doors = []
         self.__level = 1
         self.__roomNum = 0
 
@@ -15,32 +14,7 @@ class World:
         for i in range(9):
             room = Room()
             self.__rooms.append(room)
-            self.__rooms[i].genRoom(self.__level)
-            if i <= 7:
-                placed = False
-                for k in range(23, 0, -1):
-                    if self.__rooms[i].checkPos(k, 7):
-                        print(f"placing right door in room {i}, position ({k}, 7)")
-                        self.__rooms[i].updateGrid(k, 7, "door")
-                        self.__doors.append(Door("right", i))
-                        placed = True
-                        break
-
-                if not placed:
-                    print(f"Warning. Room index {i} does not have a right door")
-
-            if i > 0:
-                placed = False
-                for k in range(23):
-                    if self.__rooms[i].checkPos(k, 7):
-                        print(f"placing left door in room {i}, position ({k}, 7)")
-                        self.__rooms[i].updateGrid(k, 7, "door")
-                        self.__doors.append(Door("left", i))
-                        placed = True
-                        break
-
-                if not placed:
-                    print(f"Warning. Room index {i} does not have a left door")
+            self.__rooms[i].genRoom(i, self.__level)
 
     def __moveRoom(self, dir: str):
         if dir == "right" and self.__roomNum < 8:
@@ -65,16 +39,9 @@ class World:
         self.__rooms[self.__roomNum].updateGrid(x, y, value)
 
     def isDoor(self, x: int, y: int, dir: str):
-        tDoor = Door(dir, self.__roomNum)
-
-        try:
-            index = self.__doors.index(tDoor)
-
-            if index >= 0:
-                self.__moveRoom(dir)
-                self.updateGrid(x - 1, y, "floor")
-        except ValueError:
-            pass
+        if self.checkPos(x, y, "door"):
+            self.__moveRoom(dir)
+            self.updateGrid(x - 1, y, "floor")
 
     def checkPos(self, x: int, y: int, value: str = "floor"):
         return  self.__rooms[self.__roomNum].checkPos(x, y, value)

@@ -3,6 +3,7 @@ from world.healFount import Fountain
 from random import randint
 from datetime import datetime
 from collections import deque
+from world.door import Door
 import pygame, random
 
 class Room:
@@ -74,7 +75,7 @@ class Room:
                 if self.checkPos(i, j):
                     return [i, j]
 
-    def genRoom(self, level: int):
+    def genRoom(self, num, level: int):
         while True:
             #runs map generation methods until a completely
             #traversable map is found
@@ -85,6 +86,29 @@ class Room:
                 break
         self.__grid[12][7] = "fount"
         self.__fount = Fountain(12, 7, level)
+        if num <= 7:
+            placed = False
+            for k in range(23, 0, -1):
+                if self.checkPos(k, 7):
+                    self.updateGrid(k, 7, "door")
+                    self.door = Door("right", num)
+                    placed = True
+                    break
+
+            if not placed:
+                print(f"Warning. Room index {num} does not have a right door")
+
+        if num > 0:
+            placed = False
+            for k in range(23):
+                if self.checkPos(k, 7):
+                    self.updateGrid(k, 7, "door")
+                    self.door = Door("left", num)
+                    placed = True
+                    break
+
+            if not placed:
+                print(f"Warning. Room index {num} does not have a left door")
         self.__monList = self.__manager.genMons(self.__grid, level)
 
     def show(self, surf: pygame.surface):
@@ -119,7 +143,8 @@ class Room:
         return self.__manager.isAttackable(self.__grid, x, y, atkVal)
 
     def updateGrid(self, x: int, y: int, newVal: str):
-        self.__grid[x][y] = newVal
+        if self.__grid[x][y] != "door":
+            self.__grid[x][y] = newVal
 
     def runFount(self, player):
         self.__fount.heal(player)
