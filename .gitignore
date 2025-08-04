@@ -197,3 +197,5 @@ cython_debug/
 
 ./characters/__pycache__
 ./world/__pycache__
+./equipment/__pycache__
+./stateMan/__pycache__
